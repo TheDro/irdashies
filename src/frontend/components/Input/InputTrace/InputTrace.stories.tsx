@@ -46,6 +46,38 @@ const Traces = ({ brakeAbsActive }: { brakeAbsActive: boolean }) => {
   );
 };
 
+const YawRateTraceComponent = () => {
+  const [yawRate, setYawRate] = useState(0);
+  useEffect(() => {
+    let t = 0;
+    const interval = setInterval(() => {
+      t += 1;
+      // Oscillate with occasional spikes beyond +/-1.0 to show clamping.
+      setYawRate(Math.sin(t / 20) * 1.3);
+    }, 1000 / 60);
+
+    return () => clearInterval(interval);
+  }, []);
+  return (
+    <InputTrace
+      input={{ yawRate }}
+      settings={{
+        includeBrake: false,
+        includeThrottle: false,
+        includeClutch: false,
+        includeSteer: false,
+        includeAbs: false,
+        includeYawRate: true,
+      }}
+    />
+  );
+};
+
+export const YawRateTrace: StoryObj<typeof YawRateTraceComponent> = {
+  render: () => <YawRateTraceComponent />,
+  name: 'Yaw Rate Trace',
+};
+
 export const Primary: StoryObj<typeof Traces> = {
   render: (args: { brakeAbsActive: boolean }) => (
     <Traces brakeAbsActive={args.brakeAbsActive} />

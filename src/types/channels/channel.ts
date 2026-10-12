@@ -179,6 +179,7 @@ export interface DriverControlsSnapshot {
   displayUnits?: number;
   steeringWheelAngle?: number;
   brakeAbsActive?: boolean;
+  yawRate?: number;
   rpm?: number;
   shiftGrindRpm?: number;
   oilTemp?: number;

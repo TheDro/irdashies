@@ -7,6 +7,9 @@ const BRAKE_ABS_COLOR = getColor('yellow', 500);
 const THROTTLE_COLOR = getColor('green');
 const CLUTCH_COLOR = getColor('blue');
 const STEER_COLOR = getColor('slate', 300);
+const YAW_RATE_COLOR = getColor('purple', 400);
+const YAW_RATE_MIN = -1;
+const YAW_RATE_MAX = 1;
 
 export interface InputTraceProps {
   input: {
@@ -15,6 +18,7 @@ export interface InputTraceProps {
     brakeAbsActive?: boolean;
     throttle?: number;
     steer?: number;
+    yawRate?: number;
   };
   settings?: {
     includeClutch?: boolean;
@@ -23,6 +27,7 @@ export interface InputTraceProps {
     includeAbs?: boolean;
     absStyle?: 'overlay' | 'bar';
     includeSteer?: boolean;
+    includeYawRate?: boolean;
     strokeWidth?: number;
     maxSamples?: number;
   };
@@ -45,6 +50,7 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
     includeAbs = true,
     absStyle = 'overlay',
     includeSteer = true,
+    includeYawRate = false,
     strokeWidth = 3,
     maxSamples = 400,
   } = settings ?? {};
@@ -59,6 +65,7 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
   const brakeAbsPathRef = useRef<SVGPathElement>(null);
   const clutchPathRef = useRef<SVGPathElement>(null);
   const steerPathRef = useRef<SVGPathElement>(null);
+  const yawRatePathRef = useRef<SVGPathElement>(null);
   const rafRef = useRef<number | null>(null);
 
   // Circular buffers - pre-allocated arrays that are reused
@@ -76,6 +83,9 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
   );
   const clutchArray = useRef<number[]>(
     Array.from({ length: bufferSize }, () => 0)
+  );
+  const yawRateArray = useRef<number[]>(
+    Array.from({ length: bufferSize }, () => 0.5)
   );
 
   // Write index for circular buffer (oldest data point position)
@@ -130,6 +140,15 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
           Math.min(1, angleRad / (2 * Math.PI) + 0.5)
         );
         steerArray.current[idx] = normalizedValue;
+      }
+      if (includeYawRate) {
+        const clamped = Math.max(
+          YAW_RATE_MIN,
+          Math.min(YAW_RATE_MAX, input.yawRate ?? 0)
+        );
+        const normalizedValue =
+          (clamped - YAW_RATE_MIN) / (YAW_RATE_MAX - YAW_RATE_MIN);
+        yawRateArray.current[idx] = normalizedValue;
       }
 
       // Move write index forward (circular)
@@ -207,6 +226,12 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
           generateCenteredPathD(steerArray.current)
         );
       }
+      if (includeYawRate && yawRatePathRef.current) {
+        yawRatePathRef.current.setAttribute(
+          'd',
+          generateCenteredPathD(yawRateArray.current)
+        );
+      }
       if (includeClutch && clutchPathRef.current) {
         clutchPathRef.current.setAttribute(
           'd',
@@ -249,6 +274,7 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
     includeAbs,
     absStyle,
     includeSteer,
+    includeYawRate,
     includeClutch,
     bufferSize,
     width,
@@ -282,6 +308,14 @@ export const InputTrace = ({ input, settings }: InputTraceProps) => {
           ref={steerPathRef}
           fill="none"
           stroke={STEER_COLOR}
+          strokeWidth={1}
+        />
+      )}
+      {includeYawRate && (
+        <path
+          ref={yawRatePathRef}
+          fill="none"
+          stroke={YAW_RATE_COLOR}
           strokeWidth={1}
         />
       )}

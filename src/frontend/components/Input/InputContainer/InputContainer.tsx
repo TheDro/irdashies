@@ -16,6 +16,7 @@ export interface InputProps {
   unit?: number;
   steer?: number;
   brakeAbsActive?: boolean;
+  yawRate?: number;
   settings: InputWidgetSettings['config'];
   /** Background colour while the shift flash is on. */
   flashColor?: string;
@@ -67,6 +68,7 @@ export const InputContainer = memo(
     steer,
     unit,
     brakeAbsActive,
+    yawRate,
     settings,
     flashColor,
   }: InputProps) => {
@@ -78,7 +80,14 @@ export const InputContainer = memo(
           case 'trace':
             return (
               <InputTrace
-                input={{ brake, throttle, clutch, brakeAbsActive, steer }}
+                input={{
+                  brake,
+                  throttle,
+                  clutch,
+                  brakeAbsActive,
+                  steer,
+                  yawRate,
+                }}
                 settings={settings.trace}
               />
             );
@@ -135,6 +144,7 @@ export const InputContainer = memo(
         steer,
         unit,
         brakeAbsActive,
+        yawRate,
         settings,
       ]
     );

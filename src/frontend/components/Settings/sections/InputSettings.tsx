@@ -413,6 +413,20 @@ const SingleInputWidgetSettings = ({ widgetId }: { widgetId: string }) => {
                       }
                     />
 
+                    <SettingToggleRow
+                      title="Show Yaw Rate Trace"
+                      description="Rotation rate around the vertical axis, clamped to +/-1.0 rad/s"
+                      enabled={config.trace.includeYawRate ?? false}
+                      onToggle={(enabled) =>
+                        handleConfigChange({
+                          trace: {
+                            ...config.trace,
+                            includeYawRate: enabled,
+                          },
+                        })
+                      }
+                    />
+
                     <SettingSliderRow
                       title="Stroke Width"
                       value={config.trace.strokeWidth ?? 3}

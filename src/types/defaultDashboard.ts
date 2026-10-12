@@ -367,6 +367,7 @@ export const defaultDashboard: {
           includeBrake: true,
           includeAbs: true,
           includeSteer: true,
+          includeYawRate: false,
           includeClutch: false,
           strokeWidth: 3,
           maxSamples: 400,

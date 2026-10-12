@@ -10,9 +10,20 @@ export const useInputs = (useRawValues: boolean) => {
   const unit = snapshot?.displayUnits;
   const steer = snapshot?.steeringWheelAngle;
   const brakeAbsActive = snapshot?.brakeAbsActive;
+  const yawRate = snapshot?.yawRate;
 
   // 0=disengaged (pedal pressed) to 1=fully engaged (pedal not pressed) so we need to invert it
   const clutch = clutchRaw !== undefined ? 1 - clutchRaw : undefined;
 
-  return { brake, throttle, clutch, gear, speed, unit, steer, brakeAbsActive };
+  return {
+    brake,
+    throttle,
+    clutch,
+    gear,
+    speed,
+    unit,
+    steer,
+    brakeAbsActive,
+    yawRate,
+  };
 };

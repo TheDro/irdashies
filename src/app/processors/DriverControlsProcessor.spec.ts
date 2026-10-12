@@ -21,6 +21,7 @@ describe('DriverControlsProcessor', () => {
         Speed: 52.4,
         SteeringWheelAngle: -0.4321,
         BrakeABSactive: true,
+        YawRate: 0.05678,
         RPM: 6342,
       })
     );
@@ -34,6 +35,7 @@ describe('DriverControlsProcessor', () => {
       speed: 52.4,
       steeringWheelAngle: -0.4321,
       brakeAbsActive: true,
+      yawRate: 0.05678,
       rpm: 6342,
       version: 1,
     });
@@ -41,7 +43,7 @@ describe('DriverControlsProcessor', () => {
 
   it('publishes only changes and resets at lifecycle boundaries', () => {
     const processor = new DriverControlsProcessor();
-    const telemetry = frame({ Gear: 2, RPM: 5000 });
+    const telemetry = frame({ Gear: 2, RPM: 5000, YawRate: 0.01 });
     processor.onFrame(telemetry);
     expect(processor.snapshot().version).toBe(1);
     processor.onFrame(telemetry);
@@ -51,6 +53,7 @@ describe('DriverControlsProcessor', () => {
     expect(processor.snapshot()).toMatchObject({
       gear: undefined,
       rpm: undefined,
+      yawRate: undefined,
       version: 2,
     });
   });

@@ -19,6 +19,7 @@ const driverControls = ChannelSnapshotDecorator({
     displayUnits: 1,
     steeringWheelAngle: 0.15,
     brakeAbsActive: false,
+    yawRate: 0.08,
     version: 1,
   },
 });

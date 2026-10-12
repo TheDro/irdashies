@@ -55,6 +55,7 @@ export class DriverControlsProcessor implements TelemetryProcessor<DriverControl
     changed =
       this.set('brakeAbsActive', booleanValue(frame, 'BrakeABSactive')) ||
       changed;
+    changed = this.set('yawRate', numberValue(frame, 'YawRate')) || changed;
     changed = this.set('rpm', numberValue(frame, 'RPM')) || changed;
     changed =
       this.set('shiftGrindRpm', numberValue(frame, 'ShiftGrindRPM')) || changed;
@@ -79,6 +80,7 @@ export class DriverControlsProcessor implements TelemetryProcessor<DriverControl
     this.latest.displayUnits = undefined;
     this.latest.steeringWheelAngle = undefined;
     this.latest.brakeAbsActive = undefined;
+    this.latest.yawRate = undefined;
     this.latest.rpm = undefined;
     this.latest.shiftGrindRpm = undefined;
     this.latest.oilTemp = undefined;
