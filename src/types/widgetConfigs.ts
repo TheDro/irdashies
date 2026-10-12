@@ -27,6 +27,7 @@ export type NameFormat =
   | 'name-middlename-surname'
   | 'name-m.-surname'
   | 'name-surname'
+  | 'name-s.'
   | 'n.-surname'
   | 'surname-n.'
   | 'surname';

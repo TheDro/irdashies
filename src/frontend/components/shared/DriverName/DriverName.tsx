@@ -39,6 +39,7 @@ export type DriverNameFormat =
   | 'name-middlename-surname'
   | 'name-m.-surname'
   | 'name-surname'
+  | 'name-s.'
   | 'n.-surname'
   | 'surname-n.'
   | 'surname';
@@ -66,6 +67,9 @@ export const DriverName = (
 
     case 'name-surname':
       return [firstName, surname].filter(Boolean).join(' ');
+
+    case 'name-s.':
+      return `${firstName} ${surname.charAt(0)}.`;
 
     case 'n.-surname':
       return `${firstName.charAt(0)}. ${surname}`;

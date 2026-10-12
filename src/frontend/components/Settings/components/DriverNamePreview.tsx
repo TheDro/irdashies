@@ -15,6 +15,8 @@ export const DriverNamePreview = ({
         return <div> Max E. Verstappen </div>;
       case 'name-surname':
         return <div> Max Verstappen </div>;
+      case 'name-s.':
+        return <div> Max V. </div>;
       case 'n.-surname':
         return <div> M. Verstappen </div>;
       case 'surname-n.':

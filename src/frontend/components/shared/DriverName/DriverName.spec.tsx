@@ -76,6 +76,17 @@ describe('DriverNameView', () => {
     expect(container.textContent).toBe('C. Leclerc');
   });
 
+  it('renders name-s. format', () => {
+    const { container } = render(
+      <DriverNameView
+        fullName="Charles Marc Hervé Perceval Leclerc"
+        format="name-s."
+      />
+    );
+
+    expect(container.textContent).toBe('Charles L.');
+  });
+
   it('renders surname only', () => {
     const { container } = render(
       <DriverNameView
@@ -126,6 +137,14 @@ describe('DriverNameView', () => {
   it('renders single name, n.-surname format', () => {
     const { container } = render(
       <DriverNameView fullName="Max" format="n.-surname" />
+    );
+
+    expect(container.textContent).toBe('Max');
+  });
+
+  it('renders single name, name-s. format', () => {
+    const { container } = render(
+      <DriverNameView fullName="Max" format="name-s." />
     );
 
     expect(container.textContent).toBe('Max');

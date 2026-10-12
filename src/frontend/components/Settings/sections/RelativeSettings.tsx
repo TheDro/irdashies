@@ -181,6 +181,7 @@ const DisplaySettingsList = ({
                         'name-middlename-surname',
                         'name-m.-surname',
                         'name-surname',
+                        'name-s.',
                         'n.-surname',
                         'surname-n.',
                         'surname',

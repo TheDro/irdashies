@@ -36,6 +36,13 @@ export const FirstInitialSurname: Story = {
   },
 };
 
+export const NameSurnameInitial: Story = {
+  args: {
+    fullName: 'Charles Marc Hervé Perceval Leclerc',
+    format: 'name-s.',
+  },
+};
+
 export const SurnameOnly: Story = {
   args: {
     fullName: 'Charles Marc Hervé Perceval Leclerc',
@@ -66,6 +73,7 @@ export const AllFormats: Story = {
       <DriverNameView {...args} format="name-surname" />
       <DriverNameView {...args} format="name-middlename-surname" />
       <DriverNameView {...args} format="name-m.-surname" />
+      <DriverNameView {...args} format="name-s." />
       <DriverNameView {...args} format="n.-surname" />
       <DriverNameView {...args} format="surname-n." />
       <DriverNameView {...args} format="surname" />
