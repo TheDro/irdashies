@@ -89,10 +89,11 @@ export const Tachometer = ({
   const effectiveNumLights =
     carData?.ledNumber || (ledColors ? ledColors.length - 1 : numLights);
 
-  // Custom shift point logic - use CarPath from iRacing (matches lovely-car-data)
-  const carConfig = carPath && shiftPointSettings?.carConfigs[carPath];
+  // Settings are keyed by the canonical bundled car ID.
+  const carId = carData?.carId ?? carPath;
+  const carConfig = carId && shiftPointSettings?.carConfigs[carId];
   const customShiftPoint =
-    carConfig && typeof carConfig !== 'string'
+    carConfig && typeof carConfig !== 'string' && carConfig.enabled
       ? carConfig.gearShiftPoints[gear.toString()]?.shiftRpm
       : undefined;
   const shouldShowCustomShift = !!(
