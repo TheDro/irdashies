@@ -269,7 +269,7 @@ export const Tachometer = ({
     if (shouldBlink) {
       return flash
         ? '#ffffff' /* Brighter white */
-        : '#9333ea' /* More vivid purple */;
+        : '#9333ea'; /* More vivid purple */
     }
 
     // Phase 2: At or above shiftRpm - solid purple
@@ -402,7 +402,7 @@ export const Tachometer = ({
             }}
           >
             <div
-              className="rounded-full w-full h-full border border-gray-600 transition-all duration-300"
+              className="rounded-full w-full h-full border border-gray-600 transition-all duration-100"
               style={{
                 backgroundColor: getLedColor(i),
                 boxShadow: isLedActive(i)
